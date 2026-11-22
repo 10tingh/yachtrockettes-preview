@@ -1,0 +1,105 @@
+{
+ "_note": "Repertoire from the song cuts. Entries with tbc:true are not displayed until confirmed. Artists are the original recording artists (verify before launch). Each shown song has a \"spotify\" track link (checked against Spotify's track titles); the shelf plays it in the on-page Spotify player.",
+ "songs": [
+  {
+   "title": "Baby Come Back",
+   "artist": "Player",
+   "spotify": "https://open.spotify.com/track/41sGGCCoHI2GLV9qadX80A"
+  },
+  {
+   "title": "Baker Street",
+   "artist": "Gerry Rafferty",
+   "spotify": "https://open.spotify.com/track/5gOd6zDC8vhlYjqbQdJVWP"
+  },
+  {
+   "title": "The Biggest Part of Me",
+   "artist": "Ambrosia",
+   "spotify": "https://open.spotify.com/track/6JHXiRD1QjMK1N6AQEnL04"
+  },
+  {
+   "title": "Brandy (You're a Fine Girl)",
+   "artist": "Looking Glass",
+   "spotify": "https://open.spotify.com/track/2BY7ALEWdloFHgQZG6VMLA"
+  },
+  {
+   "title": "Dancing (title TBC)",
+   "artist": "",
+   "tbc": true
+  },
+  {
+   "title": "Fooled Around and Fell in Love",
+   "artist": "Elvin Bishop",
+   "spotify": "https://open.spotify.com/track/2hE5Lm5XOHR4t3xlhIFauP"
+  },
+  {
+   "title": "Go Your Own Way",
+   "artist": "Fleetwood Mac",
+   "spotify": "https://open.spotify.com/track/15rjQH7nTcTomKwfVMd4xl"
+  },
+  {
+   "title": "Harden My Heart",
+   "artist": "Quarterflash",
+   "spotify": "https://open.spotify.com/track/3CSLUIrI2KPMulHR5bh17O"
+  },
+  {
+   "title": "Hold the Line",
+   "artist": "Toto",
+   "spotify": "https://open.spotify.com/track/4aVuWgvD0X63hcOCnZtNFA"
+  },
+  {
+   "title": "I'm So Excited",
+   "artist": "The Pointer Sisters",
+   "spotify": "https://open.spotify.com/track/1ot6jEe4w4hYnsOPjd3xKQ"
+  },
+  {
+   "title": "Listen to the Music",
+   "artist": "The Doobie Brothers",
+   "spotify": "https://open.spotify.com/track/7Ar4G7Ci11gpt6sfH9Cgz5"
+  },
+  {
+   "title": "Love Will Keep Us Together",
+   "artist": "Captain & Tennille",
+   "spotify": "https://open.spotify.com/track/4pCNJwixy2ImFncaPY2yE2"
+  },
+  {
+   "title": "Reelin' in the Years",
+   "artist": "Steely Dan",
+   "spotify": "https://open.spotify.com/track/1x1XQqhBViz4opcpwc7FVs"
+  },
+  {
+   "title": "Rich Girl",
+   "artist": "Hall & Oates",
+   "spotify": "https://open.spotify.com/track/0qRR9d89hIS0MHRkQ0ejxX"
+  },
+  {
+   "title": "Ride Like the Wind",
+   "artist": "Christopher Cross",
+   "spotify": "https://open.spotify.com/track/2ibiJCDgb0N53RXRtYsDtg"
+  },
+  {
+   "title": "Somebody's Baby",
+   "artist": "Jackson Browne",
+   "spotify": "https://open.spotify.com/track/4SlCb8n5Jw52astU7GWPyV"
+  },
+  {
+   "title": "Steal Away",
+   "artist": "Robbie Dupree",
+   "spotify": "https://open.spotify.com/track/7v5rsCN3LhX9XaIlWyTdx3"
+  },
+  {
+   "title": "Still the One",
+   "artist": "Orleans",
+   "spotify": "https://open.spotify.com/track/2dtK02TSAuTvVYU2wGAVG0"
+  },
+  {
+   "title": "What a Fool Believes",
+   "artist": "The Doobie Brothers",
+   "spotify": "https://open.spotify.com/track/2yBVeksU2EtrPJbTu4ZslK"
+  },
+  {
+   "title": "You're No Good",
+   "artist": "Linda Ronstadt",
+   "spotify": "https://open.spotify.com/track/23DZLSxCK6kM8FF2RlzKDl"
+  }
+ ]
+}

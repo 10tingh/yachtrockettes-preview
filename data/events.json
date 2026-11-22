@@ -1,0 +1,49 @@
+{
+ "_note": "Event types for the 2x2 cards. Each has body copy, an icon key and a color photo (file base name in assets/img plus the widths that exist, and an optional focus point for the crop).",
+ "events": [
+  {
+   "title": "Corporate events",
+   "blurb": "Galas, client appreciation, product launches and holiday parties. A polished live band that keeps the room moving and the schedule on time. Bring the full band for the main event, or an acoustic set for cocktail hour.",
+   "icon": "briefcase",
+   "image": "event-duo",
+   "widths": [
+    640,
+    1280
+   ],
+   "alt": "A guitarist and a saxophonist in blazers and captain hats playing on stage"
+  },
+  {
+   "title": "Private celebrations",
+   "blurb": "Milestone birthdays, anniversaries and weddings. The songs everyone grew up with, so the dance floor fills itself. Choose the full band for the party, or an acoustic set for a dinner or ceremony.",
+   "icon": "glass",
+   "image": "event-private",
+   "widths": [
+    640,
+    1280
+   ],
+   "alt": "A vocalist in a pink sequin blazer and captain's hat singing, with a second singer behind her"
+  },
+  {
+   "title": "Festivals & park districts",
+   "blurb": "Daytime or headline slots, outdoor stages and summer series. Full production, with clear tech and logistics info for your producer.",
+   "icon": "sun",
+   "image": "event-trio",
+   "widths": [
+    640,
+    1280
+   ],
+   "alt": "Three vocalists in sparkling teal jackets and captain hats singing at the front of the stage"
+  },
+  {
+   "title": "Theatres & PACs",
+   "blurb": "A seated, concert-ready show built around vocals and musicianship. Acoustic sets also suit smaller rooms. Press kit, stage plot and video available on request.",
+   "icon": "curtain",
+   "image": "event-theatre",
+   "widths": [
+    640,
+    1280
+   ],
+   "alt": "A vocalist in a dark sequin dress singing, with a bandmate in a captain's hat behind her"
+  }
+ ]
+}

@@ -1,0 +1,354 @@
+{
+  "_readme": "Hero 3D scene config. Add a passing prop = drop a .glb in assets/models and add one entry to `props`. Units are scene units (yacht ~11 long). Top-down view on a transparent canvas: the page's white is the sea.",
+  "world": {
+    "speed": 3.5,
+    "headingDeg": 12,
+    "spawnDistance": 36,
+    "lanes": {
+      "near": [
+        3,
+        5.5
+      ],
+      "far": [
+        5.5,
+        11
+      ]
+    },
+    "seaDepth": 2
+  },
+  "light": {
+    "color": "#FFF3E0",
+    "sun": 1.9,
+    "sunPos": [
+      -28,
+      78,
+      -20
+    ],
+    "ambient": 1.15,
+    "shadowOpacity": 0.34,
+    "shadowExtent": 46,
+    "shadowMap": 2048
+  },
+  "camera": {
+    "fov": 18,
+    "fovMobile": 50,
+    "position": [
+      0,
+      57,
+      40
+    ],
+    "lookAt": [
+      0,
+      0,
+      0
+    ],
+    "frameShift": [
+      0,
+      0
+    ],
+    "frameShiftMobile": [
+      0,
+      0.1
+    ],
+    "parallax": [
+      2.5,
+      1.5
+    ]
+  },
+  "water": {
+    "pale": "#C9EEF4",
+    "mid": "#9FDDEA",
+    "deep": "#6CC8E0",
+    "foam": "#FFFFFF",
+    "bodyAlpha": 0.55,
+    "swellScale": 0.1,
+    "foamAmount": 0.9,
+    "waveHeight": 0.3,
+    "waveSpeed": 1.0,
+    "size": 220,
+    "sparkle": {
+      "color": "#FFDB94",
+      "amount": 1.4,
+      "size": 0.009,
+      "pathWidth": 12
+    }
+  },
+  "yacht": {
+    "model": "assets/models/yacht.glb",
+    "targetSize": 13,
+    "bowAxis": "+x",
+    "yOffset": 1.65,
+    "materialColors": {
+      "Yacht": "#FFF6E8",
+      "Gray": "#F26B5B",
+      "Ywindow": "#1F5F7A"
+    },
+    "bobGain": 0.9,
+    "pitchGain": 2.4,
+    "rollGain": 3,
+    "wake": {
+      "rate": 45,
+      "size": [
+        0.35,
+        1.3
+      ],
+      "life": 3.4,
+      "alpha": 0.4,
+      "color": "#7FD3D6"
+    },
+    "spray": {
+      "rate": 36,
+      "life": 0.7,
+      "alpha": 0.9,
+      "color": "#B9E8EA"
+    }
+  },
+  "mobile": {
+    "breakpoint": 768,
+    "pixelRatio": 1.5,
+    "frequencyScale": 0.5,
+    "waveCount": 2,
+    "shadowMap": 1024,
+    "simpleWater": true
+  },
+  "props": [
+    {
+      "id": "island-a",
+      "model": "assets/models/island-a.glb",
+      "targetSize": 22,
+      "scale": [
+        0.8,
+        1.3
+      ],
+      "frequency": 3.5,
+      "lane": "both",
+      "distance": "far",
+      "bobs": false,
+      "yOffset": 0.5,
+      "rotation": "random",
+      "solid": true
+    },
+    {
+      "id": "island-b",
+      "model": "assets/models/island-b.glb",
+      "targetSize": 11,
+      "scale": [
+        0.7,
+        1.4
+      ],
+      "frequency": 6,
+      "lane": "both",
+      "distance": "both",
+      "bobs": false,
+      "yOffset": 0.6,
+      "rotation": "random",
+      "solid": true
+    },
+    {
+      "id": "dolphin",
+      "model": "assets/models/dolphin.glb",
+      "targetSize": 5,
+      "scale": [
+        0.85,
+        1.2
+      ],
+      "forward": "+z",
+      "frequency": 3,
+      "lane": "both",
+      "distance": "both",
+      "swim": {
+        "speed": 6.5,
+        "heading": "bow",
+        "jitter": 14,
+        "turnRate": 1.0,
+        "meander": 0.35,
+        "bank": 0.3
+      },
+      "anim": {
+        "speed": 1.2
+      },
+      "group": "big",
+      "sway": {
+        "bones": [
+          "Spine1",
+          "Spine2",
+          "Spine3",
+          "Spine4",
+          "Tail"
+        ],
+        "amp": [
+          0.05,
+          0.09,
+          0.14,
+          0.2,
+          0.28
+        ],
+        "speed": 6.5,
+        "lag": 0.55,
+        "bend": [
+          0.06,
+          0.1,
+          0.16,
+          0.24,
+          0.34
+        ],
+        "turnNorm": 1.0
+      }
+    },
+    {
+      "id": "shark-a",
+      "model": "assets/models/shark-a.glb",
+      "targetSize": 8,
+      "scale": [
+        0.8,
+        1.2
+      ],
+      "forward": "+z",
+      "frequency": 2.4,
+      "lane": "both",
+      "distance": "far",
+      "swim": {
+        "speed": 2.4,
+        "heading": "along",
+        "wobble": 0.07,
+        "jitter": 35,
+        "turnRate": 0.45,
+        "meander": 0.3,
+        "bank": 0.35
+      },
+      "undulate": {
+        "amp": 0.09,
+        "freq": 0.8,
+        "speed": 4.5
+      },
+      "group": "big"
+    },
+    {
+      "id": "shark-b",
+      "model": "assets/models/shark-b.glb",
+      "targetSize": 6.5,
+      "scale": [
+        0.8,
+        1.2
+      ],
+      "forward": "+z",
+      "frequency": 2.4,
+      "lane": "both",
+      "distance": "far",
+      "swim": {
+        "speed": 2.2,
+        "heading": "along",
+        "wobble": 0.07,
+        "jitter": 35,
+        "turnRate": 0.45,
+        "meander": 0.3,
+        "bank": 0.35
+      },
+      "materialColors": {
+        "": "#FFFFFF"
+      },
+      "undulate": {
+        "amp": 0.09,
+        "freq": 0.8,
+        "speed": 4.5
+      },
+      "group": "big"
+    },
+    {
+      "id": "fish",
+      "model": "assets/models/fish.glb",
+      "targetSize": 1.8,
+      "scale": [
+        0.8,
+        1.3
+      ],
+      "forward": "-x",
+      "frequency": 5,
+      "school": [
+        4,
+        8
+      ],
+      "lane": "both",
+      "distance": "both",
+      "swim": {
+        "speed": 3.4,
+        "heading": "along",
+        "jitter": 25,
+        "wobble": 0.2,
+        "turnRate": 3.5
+      },
+      "undulate": {
+        "amp": 0.17,
+        "freq": 1.1,
+        "speed": 11
+      }
+    },
+    {
+      "id": "octopus",
+      "model": "assets/models/octopus.glb",
+      "targetSize": 2.4,
+      "scale": [
+        0.8,
+        1.2
+      ],
+      "idle": {
+        "type": "wander",
+        "speed": 0.35,
+        "radius": 2.2,
+        "pause": [
+          1.5,
+          4.0
+        ],
+        "sideways": false,
+        "hop": 0,
+        "tilt": 0.03,
+        "gait": 3
+      },
+      "undulate": {
+        "mode": "radial",
+        "amp": 0.06,
+        "freq": 1.4,
+        "speed": 3.2
+      },
+      "on": [
+        "island-a"
+      ],
+      "perHost": [
+        0,
+        1
+      ],
+      "chance": 0.7
+    },
+    {
+      "id": "crab",
+      "model": "assets/models/crab.glb",
+      "targetSize": 1.3,
+      "on": [
+        "island-a",
+        "island-b"
+      ],
+      "perHost": [
+        1,
+        3
+      ],
+      "chance": 1,
+      "idle": {
+        "type": "wander",
+        "speed": 1.2,
+        "radius": 3.2,
+        "pause": [
+          0.3,
+          2.0
+        ],
+        "sideways": true,
+        "hop": 0.06,
+        "tilt": 0.1,
+        "gait": 9
+      },
+      "materialColors": {
+        "White": "#C94F2E",
+        "Red": "#E0663A"
+      }
+    }
+  ]
+}

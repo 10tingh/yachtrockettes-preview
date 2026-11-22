@@ -1,0 +1,9 @@
+{
+ "_note": "PLACEHOLDER testimonials. Replace with real quotes from Jim / past clients before sharing beyond the concept review.",
+ "testimonials": [
+  {"quote": "The harmonies stopped people mid-sentence. Our guests are still talking about it.", "name": "Placeholder Name", "role": "Corporate events director", "placeholder": true},
+  {"quote": "They sound like the records. We booked them for a 50th and the whole family was on the dance floor.", "name": "Placeholder Name", "role": "Private client", "placeholder": true},
+  {"quote": "Professional from first email to last note. The easiest booking on our festival lineup.", "name": "Placeholder Name", "role": "Festival producer", "placeholder": true}
+ ],
+ "venues": ["Roscoe", "The Venue", "Brookfield Music on Grand", "Bloomingdale", "Schaumburg", "St. Charles", "Wilmette"]
+}
