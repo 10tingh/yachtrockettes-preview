@@ -10,12 +10,11 @@
   $('#yr').textContent = new Date().getFullYear();
 
   /* ---------- Phones held upright get a vertical cut of the hero that follows the lead singer ---------- */
-  // The widescreen hero is cropped to a narrow slice on a tall screen, and she drifts out of it. hero-mobile.* is cut from the same
-  // footage with a crop window that tracks her (see the note in the project). Landscape phones and tablets keep the widescreen one.
+  // The widescreen hero is cropped to a narrow slice on a tall screen, and the singers drift out of it. The mobile file is the same clip with a 9:16 crop window that tracks the vocalists (tools/build_hero_candidates.py). Landscape phones and tablets keep the widescreen one.
   const heroEl = $('#heroVideo');
   if (heroEl && window.matchMedia('(max-width: 700px) and (orientation: portrait)').matches) {
-    heroEl.setAttribute('poster', 'assets/video/hero-mobile-poster.jpg');
-    heroEl.innerHTML = '<source src="assets/video/hero-mobile.webm" type="video/webm"><source src="assets/video/hero-mobile.mp4" type="video/mp4">';
+    heroEl.setAttribute('poster', 'assets/video/hero-final-mobile-poster.jpg');
+    heroEl.innerHTML = '<source src="assets/video/hero-final-mobile.webm" type="video/webm"><source src="assets/video/hero-final-mobile.mp4" type="video/mp4">';
     heroEl.load();
   }
 

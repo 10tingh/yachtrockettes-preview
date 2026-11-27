@@ -36,6 +36,7 @@
   const strokePaths = [...script.querySelectorAll('mask path')];   // the pen paths, in writing order
   const cover = hero.querySelector('.hero__cover');
   const bottom = hero.querySelector('.hero__bottom');
+  const tagline = hero.querySelector('.hero__tagline');
   const nextShow = hero.querySelector('.hero__top .nextshow');   // under the logo
   bottom.inert = true;
   nextShow.inert = true;
@@ -163,6 +164,7 @@
     // 4. The CTAs and the next-show chip settle in
     const uiAt = scriptAt + WRITE * 0.45;
     run(bottom, [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 600, delay: uiAt, easing: 'ease-out' });
+    run(tagline, [{ opacity: 0, transform: 'translateY(-6px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 600, delay: uiAt, easing: 'ease-out' });
     run(nextShow, [{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 600, delay: uiAt, easing: 'ease-out' });   // settles in beneath the logo
 
     if (/[?&]hold/.test(location.search)) {   // dev: freeze the choreography so each beat can be inspected

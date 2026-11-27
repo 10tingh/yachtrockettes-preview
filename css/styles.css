@@ -130,7 +130,9 @@ body.at-hero .nav { transform: translateY(-100%); opacity: 0; visibility: hidden
 .hero__ui { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center;
   padding: clamp(18px, 4.5svh, 52px) var(--gutter) clamp(40px, 8svh, 84px); pointer-events: none; }
 .hero__ui > * { pointer-events: auto; }
-.hero__logo { margin: 0; line-height: 0; }
+.hero__logo { margin: 0; line-height: 0; display: flex; flex-direction: column; align-items: center; }
+/* Visible half of the H1: sits under the animated logo ("The Yacht Rock-ettes | Chicago's Yacht Rock Cover Band") */
+.hero__tagline { display: block; margin-top: clamp(10px, 2svh, 20px); font-family: var(--font-display); font-weight: 500; font-size: clamp(.72rem, .66rem + .3vw, .92rem); letter-spacing: .26em; text-transform: uppercase; line-height: 1.4; color: rgba(255,255,255,.86); text-shadow: 0 2px 18px rgba(0,0,0,.55); text-wrap: balance; }
 /* Logo: three layers (anchor, YACHT, script) on the original artboard so the intro can animate them apart. The artwork
    is flipped to white as a whole, so every layer follows. */
 .logo { position: relative; display: block; aspect-ratio: 2000 / 841; width: min(82vw, calc(clamp(100px, 24svh, 270px) * 2.378)); filter: brightness(0) invert(1) drop-shadow(0 10px 40px rgba(0,0,0,.45)); }
@@ -151,7 +153,7 @@ html.splash .logo__tilt, html.splash .logo__traceinner { transform: rotate(-45de
 html.splash .logo__yacht, html.splash .logo__script { opacity: 0; }
 .logo .logo__yachtsolid { display: none; overflow: visible; }
 html.splash .logo .logo__yachtsolid { display: block; opacity: 0; }
-html.splash .hero__bottom, html.splash .hero__top .nextshow { opacity: 0; }
+html.splash .hero__bottom, html.splash .hero__top .nextshow, html.splash .hero__tagline { opacity: 0; }
 .hero__top { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(14px, 3svh, 30px); }
 .hero__bottom { display: flex; flex-direction: column; align-items: center; }
 .hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
