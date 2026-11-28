@@ -1,5 +1,5 @@
 {
- "_note": "Repertoire from the song cuts. Entries with tbc:true are not displayed until confirmed. Artists are the original recording artists (verify before launch). Each shown song has a \"spotify\" track link (checked against Spotify's track titles); the shelf plays it in the on-page Spotify player.",
+ "_note": "HOW TO EDIT THE SETLIST: edit only this file, nothing else needs to change. One entry per song, shown on the page in this order: { \"title\": \"Song name\", \"artist\": \"Original artist\", \"spotify\": \"https://open.spotify.com/track/...\" }. To add a song, copy an entry and change it. To remove one, delete its whole entry. To reorder, move the entry. \"spotify\" is optional: without it the record opens a Spotify search for the title and artist, and with it the on-page player can play the track. Add \"tbc\": true to keep a song in the file but off the page until it is confirmed. Artists are the original recording artists (verify before launch). Keep a comma between entries and double quotes around every key and value.",
  "songs": [
   {
    "title": "Baby Come Back",
@@ -20,11 +20,6 @@
    "title": "Brandy (You're a Fine Girl)",
    "artist": "Looking Glass",
    "spotify": "https://open.spotify.com/track/2BY7ALEWdloFHgQZG6VMLA"
-  },
-  {
-   "title": "Dancing (title TBC)",
-   "artist": "",
-   "tbc": true
   },
   {
    "title": "Fooled Around and Fell in Love",

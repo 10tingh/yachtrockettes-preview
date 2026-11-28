@@ -19,12 +19,14 @@ try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.docu
 <meta property="og:url" content="https://yachtrockettes.com/">
 <meta property="og:title" content="Yacht Rock-ettes | Yacht Rock Cover Band in Chicago">
 <meta property="og:description" content="The Midwest's premier yacht rock cover band. Book the Yacht Rock-ettes for corporate events, private parties, festivals, and theatres in Chicago and beyond.">
-<meta property="og:image" content="https://yachtrockettes.com/assets/img/promo-coats-1080.jpg">
-<meta property="og:image:alt" content="The Yacht Rock-ettes vocalists on a white yacht in captain hats and coats">
+<meta property="og:image" content="https://yachtrockettes.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Two Yacht Rock-ettes vocalists in captain hats singing on a blue-lit stage">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Yacht Rock-ettes | Yacht Rock Cover Band in Chicago">
 <meta name="twitter:description" content="The Midwest's premier yacht rock cover band. Book the Yacht Rock-ettes for corporate events, private parties, festivals, and theatres in Chicago and beyond.">
-<meta name="twitter:image" content="https://yachtrockettes.com/assets/img/promo-coats-1080.jpg">
+<meta name="twitter:image" content="https://yachtrockettes.com/assets/img/og-image.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +42,7 @@ try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.docu
   "url": "https://yachtrockettes.com/",
   "email": "yachtrockettes@gmail.com",
   "description": "The Midwest's premier yacht rock cover band, playing the smoothest hits of the '70s and early '80s for corporate events, private celebrations, festivals, and theatres.",
-  "image": "https://yachtrockettes.com/assets/img/promo-coats-1080.jpg",
+  "image": "https://yachtrockettes.com/assets/img/og-image.jpg",
   "logo": "https://yachtrockettes.com/assets/logos/logo.png",
   "location": {
     "@type": "Place",
@@ -102,11 +104,16 @@ try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.docu
 <!-- 1. HERO: a full-screen page of its own. Nav is hidden here; scrolling hands off to the next section (js/hero-scroll.js). -->
 <section class="hero" id="hero" aria-label="Yacht Rock-ettes">
   <div class="hero__media">
-    <!-- Hero loop: hero-final (see hero-candidates.html). To switch, change the three hero-final paths here and the three hero-final-mobile paths in js/main.js -->
-    <video id="heroVideo" class="hero__video" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-final-poster.jpg" aria-hidden="true" tabindex="-1">
-      <source src="assets/video/hero-final.webm" type="video/webm">
-      <source src="assets/video/hero-final.mp4" type="video/mp4">
-    </video>
+    <!-- Hero loop: hero-final (see hero-candidates.html). The sources are added by the script right below, so a phone held upright
+         downloads only its own 9:16 cut and poster, and a wide screen only the wide ones. To switch the clip, change the name in that script. -->
+    <video id="heroVideo" class="hero__video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+    <script>
+    (function () {
+      var v = document.getElementById('heroVideo'), tall = matchMedia('(max-width: 700px) and (orientation: portrait)').matches, n = 'assets/video/hero-final' + (tall ? '-mobile' : '');
+      v.setAttribute('poster', n + '-poster.jpg');
+      v.innerHTML = '<source src="' + n + '.webm" type="video/webm"><source src="' + n + '.mp4" type="video/mp4">';
+    })();
+    </script>
     <div class="hero__scrim"></div>
   </div>
   <div class="hero__cover" aria-hidden="true"></div>
@@ -185,8 +192,11 @@ try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.docu
     </div>
   </figure>
   <div class="container who__grid">
+    <div class="who__head">
+      <h2 id="who-title" class="display h2">Meet your crew.</h2>
+      <p class="lede lede--lead">Captain hats optional. Great music guaranteed.</p>
+    </div>
     <div class="who__text">
-      <h2 id="who-title" class="sr-only">About the Yacht Rock-ettes</h2>
       <p class="who__body">Set sail on a voyage of velvety vocals and sultry sax solos. The Yacht Rock-ettes are the Midwest&rsquo;s premier yacht rock cover band, bringing you the smoothest hits of the &rsquo;70s and early &rsquo;80s.</p>
       <p class="who__body">From Michael McDonald&rsquo;s unmistakable growl to the soulful stylings of Sade, these ladies have the chops to take you straight back. Sway to Hall &amp; Oates classics like &ldquo;She&rsquo;s Gone&rdquo; and &ldquo;Rich Girl,&rdquo; bask in the sunny sounds of Christopher Cross and Kenny Loggins, or jam out to Toto&rsquo;s guitar riffs. These girls put the ROCK in &ldquo;smooth rock.&rdquo;</p>
       <p class="who__body">Based in Chicago, the Yacht Rock-ettes play corporate events, private celebrations, festivals, and theatres across the Midwest. Buttery harmonies. Impeccable musicianship. Sophisticated soft rock at its finest.</p>
@@ -261,7 +271,9 @@ try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.docu
       <h2 id="shows-title" class="display h2">Catch us&nbsp;live.</h2>
       <p class="lede">Here is where you can find us next. Hosting something of your own? <a href="#book">Tell us about it</a> and we will bring the party to you!</p>
     </div>
-    <ul class="showlist" id="showList" aria-live="polite"></ul>
+    <ul class="showlist" id="showList" aria-live="polite" aria-busy="true"><li class="empty">Loading upcoming shows</li></ul>
+    <p class="shows__all" id="showsAll" hidden><a class="show__link" href="https://calendar.google.com/calendar/embed?src=a7b68q49t730bv3icl5p7povks%40group.calendar.google.com&amp;ctz=America%2FChicago" target="_blank" rel="noopener">See all shows<span class="sr-only"> (opens the band calendar in a new tab)</span></a></p>
+    <noscript><style>#showList { display: none; }</style><p class="shows__all"><a class="show__link" href="https://calendar.google.com/calendar/embed?src=a7b68q49t730bv3icl5p7povks%40group.calendar.google.com&amp;ctz=America%2FChicago" target="_blank" rel="noopener">View the full calendar</a></p></noscript>
   </div>
 </section>
 
@@ -276,7 +288,7 @@ try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.docu
 </section>
 
 <!-- 7. PROOF -->
-<section class="section proof" id="proof" aria-label="What clients say">
+<section class="section proof" id="proof" aria-label="What clients say" hidden>
   <div class="container">
     <div class="testi" id="testi" role="region" aria-roledescription="carousel" aria-label="What clients say">
       <span class="testi__mark" aria-hidden="true">&ldquo;</span>
@@ -359,7 +371,7 @@ try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.docu
           <div class="field"><label for="f-loc">City / venue <span aria-hidden="true">*</span></label><input id="f-loc" name="location" type="text" required><p class="field__err" data-err-for="location" role="alert"></p></div>
         </div>
         <div class="field"><label for="f-msg">Anything else we should know?</label><textarea id="f-msg" name="message" rows="4"></textarea></div>
-        <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
         <button class="btn btn--sun btn--lg" type="submit">Send inquiry</button>
         <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
@@ -381,7 +393,7 @@ try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.docu
   <div class="container footer__inner">
     <img class="footer__logo" src="assets/logos/banner-white.png" alt="Yacht Rock-ettes" width="1100" height="239" loading="lazy">
     <div class="footer__cols">
-      <div><h3>Bookings</h3><p><a href="mailto:bookings@yachtrockettes.com">bookings@yachtrockettes.com</a></p></div>
+      <div><h3>Bookings</h3><p><a data-email></a></p></div>
       <div><h3>Follow</h3><p><a href="https://www.facebook.com/yachtrock.etteschicago" target="_blank" rel="noopener">Facebook</a> &middot; <a href="https://www.instagram.com/yachtrock.ettes/" target="_blank" rel="noopener">Instagram</a> &middot; <a href="https://www.youtube.com/@TheYachtRock-ettes" target="_blank" rel="noopener">YouTube</a></p></div>
       <div><h3>Explore</h3><p><a href="#watch">Watch</a> &middot; <a href="#shows">Shows</a> &middot; <a href="#events">Events</a> &middot; <a href="#book">Book</a></p></div>
     </div>
@@ -389,7 +401,9 @@ try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.docu
   </div>
 </footer>
 
+<script src="js/config.js"></script>
 <script src="js/main.js" defer></script>
+<script src="js/shows.js" defer></script>
 <script src="js/splash.js" defer></script>
 <script src="js/hero-scroll.js" defer></script>
 </body>

@@ -16,34 +16,34 @@
    "title": "Private celebrations",
    "blurb": "Milestone birthdays, anniversaries and weddings. The songs everyone grew up with, so the dance floor fills itself. Choose the full band for the party, or an acoustic set for a dinner or ceremony.",
    "icon": "glass",
-   "image": "event-private",
+   "image": "event-acoustic",
    "widths": [
     640,
     1280
    ],
-   "alt": "A vocalist in a pink sequin blazer and captain's hat singing, with a second singer behind her"
+   "alt": "The acoustic trio seated on stage in captain hats: a vocalist at each side and a guitarist singing in the middle"
   },
   {
    "title": "Festivals & park districts",
    "blurb": "Daytime or headline slots, outdoor stages and summer series. Full production, with clear tech and logistics info for your producer.",
    "icon": "sun",
-   "image": "event-trio",
+   "image": "event-point",
    "widths": [
     640,
     1280
    ],
-   "alt": "Three vocalists in sparkling teal jackets and captain hats singing at the front of the stage"
+   "alt": "A vocalist in a red sequin dress pointing out toward the audience while a second vocalist sings behind her on a blue-lit stage"
   },
   {
    "title": "Theatres & PACs",
    "blurb": "A seated, concert-ready show built around vocals and musicianship. Acoustic sets also suit smaller rooms. Press kit, stage plot and video available on request.",
    "icon": "curtain",
-   "image": "event-theatre",
+   "image": "event-keys",
    "widths": [
     640,
     1280
    ],
-   "alt": "A vocalist in a dark sequin dress singing, with a bandmate in a captain's hat behind her"
+   "alt": "A vocalist in a sparkling teal jacket and captain's hat singing at the microphone, with the keyboardist seated behind her"
   }
  ]
 }

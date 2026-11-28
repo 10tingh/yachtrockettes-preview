@@ -90,6 +90,9 @@
   (document.fonts?.ready || Promise.resolve()).then(() => done('fonts'));
   Promise.all([...logo.querySelectorAll('img')].map((i) => (i.decode ? i.decode().catch(() => {}) : Promise.resolve()))).then(() => done('art'));
   const video = document.getElementById('heroVideo');
+  // Hold the loop on its first frame behind the dark cover (it would otherwise play through the whole intro). play() below starts it
+  // from the very beginning as the cover lifts, so the first playthrough is complete.
+  if (video) { video.pause(); video.currentTime = 0; }
   if (!video || video.readyState >= 3) done('video');
   else { video.addEventListener('canplay', () => done('video'), { once: true }); video.addEventListener('error', () => done('video'), { once: true }); }
 
@@ -128,6 +131,7 @@
 
     // the dark cover lifts off the video while the anchor rises
     run(cover, [{ opacity: 1 }, { opacity: 0 }], { duration: 650, delay: D0 + 200, easing: 'ease' });
+    if (video) setTimeout(() => { video.currentTime = 0; video.play().catch(() => {}); }, D0 + 200);   // the hero loop starts from frame one as the cover lifts
 
     // 2. YACHT expands outward from the anchor as it slides left
     const yachtAt = D0 + T * 0.52;                 // starts as the slide does

@@ -9,14 +9,10 @@
 
   $('#yr').textContent = new Date().getFullYear();
 
-  /* ---------- Phones held upright get a vertical cut of the hero that follows the lead singer ---------- */
-  // The widescreen hero is cropped to a narrow slice on a tall screen, and the singers drift out of it. The mobile file is the same clip with a 9:16 crop window that tracks the vocalists (tools/build_hero_candidates.py). Landscape phones and tablets keep the widescreen one.
-  const heroEl = $('#heroVideo');
-  if (heroEl && window.matchMedia('(max-width: 700px) and (orientation: portrait)').matches) {
-    heroEl.setAttribute('poster', 'assets/video/hero-final-mobile-poster.jpg');
-    heroEl.innerHTML = '<source src="assets/video/hero-final-mobile.webm" type="video/webm"><source src="assets/video/hero-final-mobile.mp4" type="video/mp4">';
-    heroEl.load();
-  }
+  /* ---------- Site settings (js/config.js) ---------- */
+  const CFG = window.SITE_CONFIG || {};
+  // The contact email is set once, in js/config.js: every visible email and mailto link on the page is filled from it.
+  if (CFG.contactEmail) document.querySelectorAll('[data-email]').forEach((el) => { el.href = `mailto:${CFG.contactEmail}`; el.textContent = CFG.contactEmail; });
 
   /* ---------- Burger menu (under 900px) ---------- */
   const navEl = $('#top'), burger = $('#navBurger'), navMenu = $('#navMenu');
@@ -40,7 +36,8 @@
   const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
   const inView = new Map();
   function syncMotion(v) {
-    if (rm.matches || !inView.get(v)) { v.removeAttribute('autoplay'); v.pause(); } else { v.play().catch(() => {}); }
+    if (rm.matches || !inView.get(v)) { v.removeAttribute('autoplay'); v.pause(); }
+    else if (!document.documentElement.classList.contains('splash')) { v.play().catch(() => {}); }   // during the logo intro js/splash.js starts the hero loop itself, from frame one
   }
   loops.forEach((v) => new IntersectionObserver(([e]) => { inView.set(v, e.isIntersecting); syncMotion(v); }).observe(v));
   rm.addEventListener?.('change', () => loops.forEach(syncMotion));
@@ -80,10 +77,11 @@
     const GO = '<svg class="sleeve__go" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg>';
     // Cover art order: no two neighbours share a logo piece, and the gold-heavy covers are spread out along the shelf
     const COVER_ORDER = [0, 3, 9, 5, 6, 15, 12, 10, 8, 11, 2, 17, 1, 14, 16, 13, 7, 4, 18];
-    $('#songTrack').innerHTML = live.map((s, i) => `<li class="sleeve art-${COVER_ORDER[i % COVER_ORDER.length]}"><a class="sleeve__link" href="${esc(spotifyUrl(s))}" data-track="${esc(((s.spotify || '').match(/track\/([A-Za-z0-9]{22})/) || [])[1] || '')}" target="_blank" rel="noopener noreferrer" aria-label="${esc(s.title)}${s.artist ? ' by ' + esc(s.artist) : ''}, play it on this page; opens the song on Spotify in a new tab if the player is unavailable">
+    $('#songTrack').innerHTML = live.map((s, i) => `<li class="sleeve art-${COVER_ORDER[i % COVER_ORDER.length]}"><a class="sleeve__link" href="${esc(spotifyUrl(s))}" data-track="${esc(((s.spotify || '').match(/track\/([A-Za-z0-9]{22})/) || [])[1] || '')}" target="_blank" rel="noopener noreferrer">
       <div class="sleeve__disc" aria-hidden="true"></div>
       <div class="sleeve__cover"><div class="sleeve__art" aria-hidden="true">${GO}</div>
-      <div class="sleeve__text"><span class="sleeve__title">${esc(s.title)}</span>${s.artist ? `<span class="sleeve__artist">${esc(s.artist)}</span>` : ''}</div></div></a></li>`).join('');
+      <div class="sleeve__text"><span class="sleeve__title">${esc(s.title)}</span>${s.artist ? `<span class="sleeve__artist">${esc(s.artist)}</span>` : ''}</div></div>
+      <span class="sr-only">, play it on this page. Opens the song on Spotify in a new tab if the player is unavailable.</span></a></li>`).join('');   // the link's name is its visible text (title, artist) plus this hint
     syncShelfButtons();
   }).catch(console.error);
   /* Click a record: it plays in Spotify's own embed under the shelf. Spotify's script is only fetched on the first click, so nothing
@@ -153,47 +151,6 @@
   shelf?.addEventListener('scroll', syncShelfButtons, { passive: true });
   window.addEventListener('resize', syncShelfButtons);
 
-  /* ---------- Shows (sorted, past hidden, schema injected) ---------- */
-  getJSON('data/shows.json').then(({ shows }) => {
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const parse = (iso) => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); };
-    const upcoming = shows.filter((s) => parse(s.date) >= today).sort((a, b) => parse(a.date) - parse(b.date));
-    const list = $('#showList');
-
-    if (!upcoming.length) {
-      list.innerHTML = '<li class="empty">New dates are on the way. Planning an event? <a href="#book">Send us an inquiry</a>.</li>';
-    } else {
-      list.innerHTML = upcoming.map((s) => {
-        const d = parse(s.date);
-        const mo = d.toLocaleDateString('en-US', { month: 'short' });
-        const wd = d.toLocaleDateString('en-US', { weekday: 'long' });
-        const link = s.private ? '<span class="show__private">Private event</span>' : s.url ? `<a class="show__link" href="${esc(s.url)}">Info &amp; tickets<span class="sr-only"> for ${esc(s.venue)}</span></a>` : '';
-        return `<li class="show">
-          <time class="show__date" datetime="${esc(s.date)}"><span class="show__mo">${mo}</span><span class="show__day">${d.getDate()}</span></time>
-          <div><p class="show__venue">${esc(s.venue)}${s.set ? `<span class="tag tag--set">${esc(s.set)}</span>` : ''}</p>
-          <p class="show__meta">${wd} &middot; ${esc(s.city)}, ${esc(s.state)}</p></div>${link}</li>`;
-      }).join('');
-
-      // Hero "next show" chip
-      const n = upcoming.find((s) => !s.private) || upcoming[0], nd = parse(n.date);
-      // Wide screens: "Jan 23 · Venue, City". Phones hide the venue and add the state: "Jan 23 · City, ST" (see .ns__venue / .ns__st).
-      const nsDate = nd.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      $('#nextShowText').innerHTML = `${esc(nsDate)} &middot; <span class="ns__venue">${esc(n.venue)}, </span>${esc(n.city)}<span class="ns__st">, ${esc(n.state)}</span>`;
-      $('#nextShow').setAttribute('aria-label', `Next show: ${nsDate}, ${n.venue}, ${n.city}, ${n.state}`);
-      $('#nextShow').hidden = false;
-
-      // Event structured data (real dates only; skip placeholders at launch by removing the flag)
-      const ld = upcoming.filter((s) => !s.private).map((s) => ({
-        '@context': 'https://schema.org', '@type': 'Event', name: `Yacht Rock-ettes at ${s.venue}`, startDate: s.date,
-        eventStatus: 'https://schema.org/EventScheduled',
-        location: { '@type': 'Place', name: s.venue, address: { '@type': 'PostalAddress', addressLocality: s.city, addressRegion: s.state } },
-        performer: { '@type': 'MusicGroup', name: 'Yacht Rock-ettes' }
-      }));
-      const tag = document.createElement('script'); tag.type = 'application/ld+json'; tag.textContent = JSON.stringify(ld);
-      document.head.appendChild(tag);
-    }
-  }).catch(console.error);
-
   /* ---------- Event types ---------- */
   const ICONS = {
     briefcase: '<path d="M4 8h16v11H4zM9 8V5h6v3M4 13h16"/>',
@@ -215,11 +172,21 @@
       </div></article>`).join('');
   }).catch(console.error);
 
-  /* ---------- Proof ---------- */
+  /* ---------- Proof: testimonials ---------- */
+  // The whole section stays hidden (no heading, no empty slide) until data/testimonials.json has at least one entry with a quote.
   getJSON('data/testimonials.json').then(({ testimonials }) => {
+    const proof = $('#proof');
+    const quotes = (Array.isArray(testimonials) ? testimonials : []).filter((t) => t && String(t.quote || '').trim());
+    if (!proof || !quotes.length) return;
+    // "Name, Event type (Source)": every part but the quote is optional
+    const caption = (t) => {
+      const who = [t.name, t.eventType].map((x) => String(x || '').trim()).filter(Boolean).join(', ');
+      const src = String(t.source || '').trim();
+      return who ? (src ? `${who} (${src})` : who) : src;
+    };
     // one quote at a time: the slides stack in one grid cell (so the height never jumps) and cross-fade; a progress line moves on to the next
     const slides = $('#quotes'), prog = $('#tProg'), count = $('#tCount');
-    slides.innerHTML = testimonials.map((t, i) => `<figure class="tq" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${testimonials.length}"><blockquote><p>${esc(t.quote)}</p></blockquote><figcaption>${esc(t.role)}</figcaption></figure>`).join('');
+    slides.innerHTML = quotes.map((t, i) => `<figure class="tq" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${quotes.length}"><blockquote><p>${esc(t.quote)}</p></blockquote>${caption(t) ? `<figcaption>${esc(caption(t))}</figcaption>` : ''}</figure>`).join('');
     const items = [...slides.children];
     let cur = 0;
     const restart = () => { prog.classList.remove('run'); void prog.offsetWidth; prog.classList.add('run'); };   // restarts the timer line
@@ -232,8 +199,10 @@
     $('#tPrev').addEventListener('click', () => show(cur - 1));
     $('#tNext').addEventListener('click', () => show(cur + 1));
     prog.addEventListener('animationend', () => show(cur + 1));   // the timer line finishing is what advances it (and it does not run for reduced motion)
+    proof.hidden = false;
+    if (items.length === 1) $('.testi__bar', proof).hidden = true;   // nothing to page through
     show(0);
-  }).catch(console.error);
+  }).catch(() => {});
 
   /* ---------- Booking form ---------- */
   const form = $('#bookForm'), status = $('#formStatus'), flip = $('#flip'), thanks = $('#thanks');
@@ -265,8 +234,8 @@
   }
   Object.keys(rules).forEach((n) => form.elements[n]?.addEventListener('blur', () => validate(n)));
 
-  /* Structured payload, ready for a future CRM/webhook. Set ENDPOINT to wire it up. */
-  const ENDPOINT = null;
+  /* buildPayload() is the clean, structured record of an inquiry (ready for a future CRM). formspreeBody() flattens it to the
+     form's own field names for Formspree, which needs a top-level "email" to set the reply-to. */
   function buildPayload() {
     const f = new FormData(form);
     return {
@@ -276,27 +245,53 @@
       meta: { source: 'landing-page-concept', submittedAt: new Date().toISOString(), page: location.href }
     };
   }
+  function formspreeBody(p) {
+    const type = form.elements.eventType.selectedOptions[0]?.textContent.trim() || p.event.type;
+    const [y, m, d] = p.event.date.split('-').map(Number);
+    const date = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, d)));
+    return {
+      name: p.contact.name, email: p.contact.email, phone: p.contact.phone,
+      eventType: p.event.type, eventDate: p.event.date, location: p.event.location, message: p.message,
+      source: p.meta.source, page: p.meta.page, submittedAt: p.meta.submittedAt,
+      _subject: `Booking inquiry: ${type}, ${date}`,
+      _gotcha: form.elements._gotcha.value
+    };
+  }
+  // Sends the inquiry to Formspree (js/config.js: formspreeFormId). While the id is still the placeholder nothing is sent.
   async function submitInquiry(payload) {
-    if (!ENDPOINT) { console.info('[Booking inquiry: placeholder handler]', payload); return { ok: true }; }
-    const r = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-    return { ok: r.ok };
+    const id = CFG.formspreeFormId;
+    if (!id || /^PASTE/i.test(id)) return { ok: false };
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 15000);
+    try {
+      const r = await fetch(`https://formspree.io/f/${encodeURIComponent(id)}`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(formspreeBody(payload)), signal: ctl.signal
+      });
+      return { ok: r.ok };
+    } finally { clearTimeout(timer); }
+  }
+  function showSendError() {
+    const mail = CFG.contactEmail;
+    status.className = 'form__status err';
+    status.innerHTML = 'Sorry, your inquiry did not go through. Please try again' + (mail ? `, or email us at <a href="mailto:${esc(mail)}?subject=Booking%20inquiry">${esc(mail)}</a>.` : '.');
   }
   form.addEventListener('submit', async (e) => {
     e.preventDefault(); status.className = 'form__status'; status.textContent = '';
-    if (form.elements.website.value) return; // honeypot
+    if (form.elements._gotcha.value) return; // honeypot: a bot filled the hidden field
     const results = Object.keys(rules).map(validate);
     if (results.includes(false)) {
       status.className = 'form__status err'; status.textContent = 'Please fix the highlighted fields.';
       form.querySelector('.is-invalid input, .is-invalid select')?.focus(); return;
     }
-    const btn = form.querySelector('button[type=submit]'); btn.disabled = true;
+    const btn = form.querySelector('button[type=submit]'), label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending...';
     try {
       const { ok } = await submitInquiry(buildPayload());
-      if (!ok) throw new Error('bad response');
+      if (!ok) throw new Error('not sent');
       form.reset(); setFlipped(true);
     } catch (err) {
-      status.className = 'form__status err'; status.textContent = 'Something went wrong. Please try again, or email us directly.';
-    } finally { btn.disabled = false; }
+      showSendError();     // the form stays filled in
+    } finally { btn.disabled = false; btn.textContent = label; }
   });
 
   /* ---------- About: remember the closed height, so the content stays put while an item opens ---------- */
